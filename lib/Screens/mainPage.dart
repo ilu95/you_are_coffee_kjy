@@ -4,6 +4,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:like_button/like_button.dart';
+import 'package:you_are_coffee/Data/Users/user.dart';
 import '../Data/Coffee/coffee.dart';
 import 'camera.dart';
 import 'coffee_Page.dart';
@@ -128,8 +129,15 @@ class _MainPageState extends State<MainPage>  with SingleTickerProviderStateMixi
 
   double _ratingValue = 3;
 
+
+
   @override
   Widget build(BuildContext context) {
+    String user_Nickname = Get.arguments[0];
+    String user_ImgUrl = Get.arguments[1];
+    String user_Email = Get.arguments[2];
+
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -150,11 +158,11 @@ class _MainPageState extends State<MainPage>  with SingleTickerProviderStateMixi
                 //사용자 정보 업데이트 하는 곳
                 UserAccountsDrawerHeader(
                   currentAccountPicture: CircleAvatar(
-                    backgroundImage: AssetImage('images/coffee/coffee.jpg'),
+                    backgroundImage: NetworkImage(user_ImgUrl),
                     backgroundColor: Colors.white,
                   ),
-                  accountName: Text('UserName'),
-                  accountEmail: Text('UserID'),
+                  accountName: Text(user_Nickname),
+                  accountEmail: Text(user_Email),
                   decoration: BoxDecoration(
                       color: Colors.brown[200],
                       borderRadius: BorderRadius.only(

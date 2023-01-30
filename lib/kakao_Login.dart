@@ -1,5 +1,5 @@
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
-import 'package:you_are_coffee/socialLogin.dart';
+import 'package:you_are_coffee/social_Login.dart';
 
 class KaKaoLogin implements SocialLogin {
   @override
@@ -13,6 +13,7 @@ class KaKaoLogin implements SocialLogin {
         try {
           await UserApi.instance.loginWithKakaoAccount();
         }catch(e) {
+          print("로그인 실패");
           return false;
         }
       }

@@ -3,6 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'model.dart';
 import 'package:like_button/like_button.dart';
 
+
 //메인 화면에서 커피를 눌렀을떄,
 class CoffeePage extends StatefulWidget {
   const CoffeePage({Key? key, required this.coffee}) : super(key: key);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
-import 'package:you_are_coffee/kakaoLogin.dart';
+import 'package:you_are_coffee/kakao_Login.dart';
 import 'package:you_are_coffee/main_view_model.dart';
 import 'package:get/get.dart';
 //jdk 문제 업데이트
@@ -34,9 +34,10 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
 
-  //main View모델 생성하고 객체 전달
+
+class _MyHomePageState extends State<MyHomePage> {
+    //main View모델 생성하고 객체 전달
   final viewModel = MainViewModel(KaKaoLogin());
 
   @override
@@ -58,6 +59,8 @@ class _MyHomePageState extends State<MyHomePage> {
             GestureDetector(
               onTap: () async{
                 await viewModel.login();
+                print(viewModel.user?.kakaoAccount?.profile?.profileImageUrl);
+
                 debugPrint('The login button has been tapped');
                 setState(() {
                 });
@@ -75,7 +78,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: ()async{
                   await viewModel.logout();
                   setState(() {
-
                   });
                 },
                 child: Text('Logout')
@@ -83,7 +85,16 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton(
                 onPressed: () {
                   print('move main page');
-                  Get.to(MainPage());
+                  Get.to(() => MainPage(),arguments: [
+                    viewModel.user?.kakaoAccount?.profile?.nickname,
+                    viewModel.user?.kakaoAccount?.profile?.profileImageUrl,
+                    viewModel.user?.kakaoAccount?.email
+                  ]);
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //       builder: (context) => MainPage())
+                  // );
                 },
                 child: Text('Main')
             ),
