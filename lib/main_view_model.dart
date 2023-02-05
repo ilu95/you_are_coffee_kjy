@@ -1,5 +1,5 @@
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
-import 'package:you_are_coffee/social_Login.dart';
+import 'package:you_are_coffee/socialLogin.dart';
 
 class MainViewModel{
   final SocialLogin _socialLogin; //로그인 객체 하나 생성
@@ -9,10 +9,9 @@ class MainViewModel{
   MainViewModel(this._socialLogin);
   //로그인 기능의 로그인
   Future login() async{
-    print("로그인 시도");
     isLogined = await _socialLogin.login();//로그인을 시도
     if(isLogined) {
-      return user = await UserApi.instance.me();//로그인이 성공하면 유저정보를 가져옴
+      user = await UserApi.instance.me();//로그인이 성공하면 유저정보를 가져옴
     }
   }
   //

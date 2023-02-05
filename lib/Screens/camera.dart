@@ -7,7 +7,7 @@ import 'camera_Result.dart';
 import 'package:image/image.dart' as img;
 import '../classifier/classifier.dart';
 import '../styles.dart';
-import 'package:you_are_coffee/widget/plant_photo_view.dart';
+import 'package:you_are_coffee/Widget/plant_photo_view.dart';
 
 const _labelsFileName = 'assets/labels.txt';
 const _modelFileName = 'model_unquant.tflite';

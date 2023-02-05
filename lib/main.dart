@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
-import 'package:you_are_coffee/kakao_Login.dart';
+import 'package:you_are_coffee/kakaoLogin.dart';
 import 'package:you_are_coffee/main_view_model.dart';
 import 'package:get/get.dart';
+import 'package:you_are_coffee/main_view_model.dart';
 //jdk 문제 업데이트
 import 'Screens/mainPage.dart';
 import 'key.dart';
@@ -37,7 +38,7 @@ class MyHomePage extends StatefulWidget {
 
 
 class _MyHomePageState extends State<MyHomePage> {
-    //main View모델 생성하고 객체 전달
+  //main View모델 생성하고 객체 전달
   final viewModel = MainViewModel(KaKaoLogin());
 
   @override
@@ -53,8 +54,9 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Image.asset('images/coffee/coffee.jpg'),
             Text(
-              '${viewModel.isLogined}',//로그인 여부 확인
+              '${(viewModel.isLogined?'Logged in':'Not Logged in')}',//로그인 여부 확인
               style: Theme.of(context).textTheme.headline4,
+
             ),
             GestureDetector(
               onTap: () async{
@@ -75,6 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 30,
             ),
             ElevatedButton(
+                style:  ElevatedButton.styleFrom(primary: Colors.brown[200]),
                 onPressed: ()async{
                   await viewModel.logout();
                   setState(() {
@@ -83,13 +86,25 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Text('Logout')
             ),
             ElevatedButton(
+                style:  ElevatedButton.styleFrom(primary: Colors.brown[200]),
                 onPressed: () {
-                  print('move main page');
-                  Get.to(() => MainPage(),arguments: [
-                    viewModel.user?.kakaoAccount?.profile?.nickname,
-                    viewModel.user?.kakaoAccount?.profile?.profileImageUrl,
-                    viewModel.user?.kakaoAccount?.email
-                  ]);
+                  if(viewModel.isLogined==true) {
+                    print('move main page');
+                    Get.to(() => MainPage(), arguments: [
+                      {
+                        viewModel.user?.kakaoAccount?.profile
+                            ?.nickname?? 'coffee lover'
+                      },
+                      {
+                        viewModel.user?.kakaoAccount?.profile
+                            ?.profileImageUrl?? 'images/User_Profile_Image.jpg'
+                      },
+                      {viewModel.user?.kakaoAccount?.email?? '@@'}
+                    ]);
+                  }
+                  else {
+                    print('로그인 실패');
+                  }
                   // Navigator.push(
                   //   context,
                   //   MaterialPageRoute(
